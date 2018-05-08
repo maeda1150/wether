@@ -30,7 +30,7 @@ func Handler(req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse,
 	if ginLambda == nil {
 		log.Printf("Gin cold start")
 		r := gin.Default()
-		r.GET("/aws_billing", getWether)
+		r.GET("/wether", getWether)
 
 		ginLambda = ginadapter.New(r)
 	}
