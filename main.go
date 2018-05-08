@@ -1,8 +1,8 @@
 package main
 
 import (
+	"bytes"
 	"log"
-	"os"
 	"text/template"
 
 	awsapi "./awsapi"
@@ -62,7 +62,7 @@ func getWether(c *gin.Context) {
 		c.String(400, "Get wether error")
 		return
 	}
-	c.String(200, wether)
+	c.String(200, "`"+wether+"`")
 }
 
 func getCurrent(l, u, lang string, key string) *owm.CurrentWeatherData {
@@ -82,11 +82,12 @@ func getWetherMap(key string) (string, error) {
 		return "", err
 	}
 
-	err = tmpl.Execute(os.Stdout, w)
+	var tpl bytes.Buffer
+	err = tmpl.Execute(&tpl, w)
 	if err != nil {
 		log.Println(err)
 		return "", err
 	}
 
-	return tmpl.Name(), nil
+	return tpl.String(), nil
 }
