@@ -62,7 +62,7 @@ func getWether(c *gin.Context) {
 		c.String(400, "Get wether error")
 		return
 	}
-	c.String(200, "`"+wether+"`")
+	c.String(200, "```"+wether+"```")
 }
 
 func getCurrent(l, u, lang string, key string) *owm.CurrentWeatherData {
